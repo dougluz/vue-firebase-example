@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
+import PostView from '@/components/PostView'
+import DetailView from '@/components/DetailView'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -35,6 +37,19 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    }.
+    {
+      path: '/detail/:id',
+      name: 'post',
+      component: PostView,
+      meta : {
+        requiresAuth: true
+      }
+    }
+    {
+      path: '/post',
+      name: 'post',
+      component: PostView
     }
   ]
 })
