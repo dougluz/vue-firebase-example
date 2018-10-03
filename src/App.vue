@@ -1,13 +1,39 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <v-toolbar>
+      <v-toolbar-side-icon></v-toolbar-side-icon>
+      <v-toolbar-title>Title</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat to="/">Inicio</v-btn>
+        <v-btn flat to="/post">Posts</v-btn>
+        <v-btn flat v-on:click="logout">Logout</v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <br>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
-  name: 'App'
+  name: 'App',
+  data () {
+    return {}
+  },
+  methods: {
+    logout: function () {
+      firebase.auth().signOut().then(() => {
+        this.$router.replace('login')
+      })
+    }
+  },
+  computed: {
+    user: function () {
+      return firebase.auth().currentUser
+    }
+  }
 }
 </script>
 
@@ -18,6 +44,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

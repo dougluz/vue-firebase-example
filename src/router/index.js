@@ -37,19 +37,22 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    }.
+    },
     {
       path: '/detail/:id',
-      name: 'post',
-      component: PostView,
-      meta : {
+      name: 'DetailView',
+      component: DetailView,
+      meta: {
         requiresAuth: true
       }
-    }
+    },
     {
       path: '/post',
-      name: 'post',
-      component: PostView
+      name: 'PostView',
+      component: PostView,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
