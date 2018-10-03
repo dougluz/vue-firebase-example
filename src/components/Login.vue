@@ -2,28 +2,33 @@
   <div>
     <div class="">
       <v-layout>
-        <v-flex xs12 sm6 offset-sm3>
-          <v-card>
-            <v-card-title primary-title>
-              <h3>Login</h3>
-            </v-card-title>
-              <v-form>
-                <v-text-field
-                  label="Email"
-                  placeholder="Email"
-                  v-model="email"
-                  solo></v-text-field>
-                  <v-text-field
-                    label="Senha"
-                    placeholder="Senha"
-                    v-model="password"
-                    solo></v-text-field>
-              </v-form>
-              <v-card-actions>
-                <v-btn color="success" v-on:click="signIn">Conectar</v-btn>
-              </v-card-actions>
-          </v-card>
-        </v-flex>
+        <v-container grid-list-xl>
+          <v-flex xs12 sm6 offset-sm3>
+            <v-card>
+              <v-card-title primary-title>
+                <h3>Login</h3>
+              </v-card-title>
+                <v-container grid-list-xl>
+                  <v-form>
+                    <v-text-field
+                      label="Email"
+                      placeholder="Email"
+                      v-model="email"
+                      solo></v-text-field>
+                      <v-text-field
+                        label="Senha"
+                        :append-icon="show1 ? 'visibility_off' : 'visibility'"
+                        placeholder="Senha"
+                        v-model="password"
+                        solo></v-text-field>
+                  </v-form>
+                  <v-card-actions>
+                    <v-btn color="success" v-on:click="signIn">Conectar</v-btn>
+                  </v-card-actions>
+              </v-container>
+            </v-card>
+          </v-flex>
+        </v-container>
       </v-layout>
     </div>
   </div>
