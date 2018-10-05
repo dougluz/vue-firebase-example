@@ -5,9 +5,10 @@ import App from './App'
 import router from './router'
 import firebase from 'firebase'
 import Vuetify from 'vuetify'
+import Vuefire from 'vuefire'
 
 Vue.config.productionTip = false
-Vue.use(Vuetify)
+Vue.use(Vuetify, Vuefire)
 
 let app
 var config = {
@@ -25,6 +26,9 @@ firebase.auth().onAuthStateChanged(function (user) {
     app = new Vue({
       el: '#app',
       router,
+      firebase: {
+
+      },
       components: { App },
       template: '<App/>'
     })

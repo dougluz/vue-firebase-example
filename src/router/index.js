@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import PostView from '@/components/PostView'
 import DetailView from '@/components/DetailView'
+import NProgress from 'nprogress'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -36,20 +37,15 @@ const router = new Router({
       component: Hello,
       meta: {
         requiresAuth: true
-      }
+      },
+      children: [
+        {path: '/novo', component: PostView, name: 'modal'}
+      ]
     },
     {
       path: '/detail/:id',
-      name: 'DetailView',
+      name: 'detail',
       component: DetailView,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/post',
-      name: 'PostView',
-      component: PostView,
       meta: {
         requiresAuth: true
       }
@@ -66,4 +62,14 @@ router.beforeEach((to, from, next) => {
   else next()
 })
 
+router.beforeResolve((to, from, next) => {
+  if (to.name) {
+    NProgress.start()
+  }
+  next()
+})
+
+router.afterEach((to, from) => {
+  NProgress.done()
+})
 export default router

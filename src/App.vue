@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <v-toolbar>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-title>Title</v-toolbar-title>
+    <v-toolbar fixed>
+      <!--<v-toolbar-side-icon>
+      </v-toolbar-side-icon> -->
+      <v-toolbar-title>Tranorte</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat to="/">Inicio</v-btn>
-        <v-btn flat to="/post">Posts</v-btn>
-        <v-btn flat v-on:click="logout">Logout</v-btn>
+        <v-btn flat to="/hello"><v-icon>home</v-icon> Inicio</v-btn>
+        <v-btn flat v-on:click="logout"><v-icon>exit_to_app</v-icon> Sair</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <br>
@@ -29,9 +29,15 @@ export default {
       })
     }
   },
-  computed: {
+  watch: {
     user: function () {
-      return firebase.auth().currentUser
+      firebase.onAuthStateChanged(function (user) {
+        if (user) {
+          return firebase.auth.currentUser
+        } else {
+          return false
+        }
+      })
     }
   }
 }

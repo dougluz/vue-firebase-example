@@ -17,9 +17,11 @@
                       solo></v-text-field>
                       <v-text-field
                         label="Senha"
-                        :append-icon="show1 ? 'visibility_off' : 'visibility'"
+                        :append-icon="password_show ? 'visibility_off' : 'visibility'"
+                        :type="password_show ? 'text' : 'password'"
                         placeholder="Senha"
                         v-model="password"
+                        @click:append="password_show = !password_show"
                         solo></v-text-field>
                   </v-form>
                   <v-card-actions>
@@ -40,20 +42,29 @@ export default {
   name: 'login',
   data: function () {
     return {
+      password_show: false,
       email: '',
-      password: ''
+      password: '',
+      rules: {
+        required: value => !!value || 'Required.',
+        min: v => v.length >= 8 || 'Min 8 characters',
+        emailMatch: () => 'The email and password you entered dont match'
+      }
     }
   },
   methods: {
     signIn: function () {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-        (user) => {
-          this.$router.replace('hello')
-        },
-        (err) => {
-          alert('Ops. ' + err.message)
-        }
-      )
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then(
+          user => {
+            this.$router.replace('hello')
+          },
+          err => {
+            alert('Ops. ' + err.message)
+          }
+        )
     }
   }
 }
@@ -69,7 +80,7 @@ input {
   padding: 15px;
 }
 .theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat) {
-    background-color: #61B865;
+  background-color: #61b865;
 }
 p {
   margin-top: 40px;
